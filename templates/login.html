@@ -1,0 +1,38 @@
+
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+<style>
+body { background: #e8f1f9; }
+</style>
+{% endblock %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+			{% if message %}
+			<h1 class="pt-5 pb-2">{{ message }} {{ firstname }} {{ lastname }}</h1>
+			<p class="lead"><strong>Username: {{ username }}</strong></p>
+			<p class="lead"><strong>Email: {{ email }}</strong></p>
+			{% if file %}
+				<p class="lead"><strong>Download File: <a href="{{ file }}" download>{{ filename }}</a></strong></p>
+				<p class="lead"><strong>Number of words in file: {{numwords}}</strong></p>
+			{% endif %}
+			{% elif errormessage %}
+			<h1 class="pt-5 pb-2">{{ errormessage }}</h1>
+			<p><a href="{{ url_for('login_user') }}">Login Again</a></p>
+			{% else %}
+			<h1 class="pt-5 pb-2" align="center">Login User</h1>
+			{{ wtf.quick_form(form) }}
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
